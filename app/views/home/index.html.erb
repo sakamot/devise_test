@@ -1,1 +1,8 @@
-Top page
+<h1>Top page</h1>
+
+<% if @user.present? %>
+  <p>hello, <%= @user.email %>!</p>
+  <%= link_to 'sign_out', destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to 'sign_in', new_user_session_path %>
+<% end %>
