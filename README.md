@@ -1,24 +1,24 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails + devise で会員登録APIを作るサンプル
 
-Things you may want to cover:
+### バージョン
+* docker: 17.12.0-ce
+* docker-compose: 1.18.0
 
-* Ruby version
+### セットアップ
 
-* System dependencies
+```
+$ git clone git@github.com:sakamot/devise_test.git
+$ cp config/application.yml.example config/application.yml
+$ docker-compose up
+```
 
-* Configuration
+ブラウザから`localhost:3000/`にアクセス
 
-* Database creation
+### 会員登録APIリクエスト例
 
-* Database initialization
+```
+$ curl -H 'Content-Type:application/json' -d '{"email": "test@test.com", "password": "123456"}' http://localhost:3000/api/users/sign_up
+```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
