@@ -5,21 +5,24 @@ module Api
 
     def sign_up
       unless @user.valid?
-        return render inline: "Bad Data:#{@user.errors.full_messages.join('\n')}"
+        json = { "message": @user.errors.full_messages.join('\n') }
+        return render status: 403, json: json
       end
       user_save!
-      return render inline: 'OK! Registration Success!'
+      return render status: 200
     end
 
     private
 
     def set_user
-      begin
-        @user = User.new(@json_request)
-      rescue => e
-        logger.debug e
-        return render inline: 'Error'
+      unless keys_correct?
+        return render status: 404, json: {"message": "パラメータが不正です。"}
       end
+      @user = User.new(@json_request)
+    end
+
+    def keys_correct?
+      @json_request.keys.sort == User::API_COLUMNS
     end
 
     def user_save!
@@ -28,7 +31,8 @@ module Api
         @user.save!
       rescue => e
         logger.debug e
-        return render inline: 'Error!'
+        json = {"message": "サーバーエラーが発生しました。"}
+        return render status: 500, json: json
       end
     end
 
