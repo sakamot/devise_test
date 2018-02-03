@@ -10,6 +10,7 @@ Rails + devise で会員登録APIを作るサンプル
 
 ```
 $ git clone git@github.com:sakamot/devise_test.git
+$ docker-compose build
 $ docker-compose up
 ```
 
